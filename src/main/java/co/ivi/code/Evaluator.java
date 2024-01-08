@@ -666,7 +666,8 @@ public class Evaluator implements Closeable {
                 ev.messenger.ops().println();
                 hasOutput[0] = true;
             }
-            ev.messenger.ops().printf("%4s : %s\n", sn.id(), sn.source().replace("\n", "\n       "));
+            ev.messenger.ops().printf("%4s : %s\n",
+                    sn.id(), sn.source().replace("\n", "\n       "));
         });
 
         return true;
@@ -1193,11 +1194,11 @@ public class Evaluator implements Closeable {
     private static void printHelp(Messenger messenger, String name, String key) {
         int len = name.length();
         String centered = "%" + ((OUTPUT_WIDTH + len) / 2) + "s";
-        messenger.out("\n");
+        // messenger.out("\n");
         messenger.out(centered, name);
-        messenger.out("\n");
+        // messenger.out("\n");
         messenger.out(centered, Stream.generate(() -> "=").limit(len).collect(Collectors.joining()));
-        messenger.out("\n");
+        // messenger.out("\n");
         messenger.out(Messenger.ResourceKeys.resource(key));
     }
 
@@ -1208,15 +1209,13 @@ public class Evaluator implements Closeable {
                 (m1, m2) -> m1,
                 LinkedHashMap::new));
         for (Map.Entry<String, String> e : a2b.entrySet()) {
-            ev.messenger.out("%s\n", e.getKey());
+            ev.messenger.out("%s", e.getKey());
             // ev.messenger.ops().printf(ev.prefix(e.getValue(), ev.feedback.getPre() + "\t", ev.feedback.getPost()));
-            ev.messenger.ops().printf(prefix(e.getValue()));
+            String value = e.getValue();
+            if (value != null) {
+                ev.messenger.ops().println(value);
+            }
         }
-    }
-
-    // private static String prefix(String s, String pre, String post) {
-    private static String prefix(String s) {
-        return s == null ? "" : "    " + s + "\n";
     }
 
     public static boolean cmdImports(Evaluator ev, String arg) {

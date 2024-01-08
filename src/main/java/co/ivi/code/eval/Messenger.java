@@ -26,6 +26,8 @@
 
 package co.ivi.code.eval;
 
+import org.springframework.lang.NonNull;
+
 import java.io.PrintStream;
 import java.text.MessageFormat;
 import java.util.MissingResourceException;
@@ -42,18 +44,14 @@ public record Messenger(PrintStream ops) {
         return ops;
     }
 
-    public void log(String format, Object... args) {
+    public void log(@NonNull String format, Object... args) {
         ops.printf(format, args);
-        if (format != null) {
-            ops.println();
-        }
+        ops.println();
     }
 
-    public void out(String format, Object... args) {
+    public void out(@NonNull String format, Object... args) {
         ops.printf(format, args);
-        if (format != null) {
-            ops.println();
-        }
+        ops.println();
     }
 
     public void msg(String resourceKey, Object... args) {
