@@ -1212,8 +1212,8 @@ public class Evaluator implements Closeable {
             ev.messenger.out("%s", e.getKey());
             // ev.messenger.ops().printf(ev.prefix(e.getValue(), ev.feedback.getPre() + "\t", ev.feedback.getPost()));
             String value = e.getValue();
-            if (value != null) {
-                ev.messenger.ops().println(value);
+            if (value != null) {    // add intent and new line
+                ev.messenger.ops().println("    " + value + "\n");
             }
         }
     }
