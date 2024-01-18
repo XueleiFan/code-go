@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "https://code.ivi.co, https://note.ivi.co")
+@CrossOrigin(origins = "https://code.ivi.co,https://note.ivi.co")
 public class Controller {
     private final Service service;
 
