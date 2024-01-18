@@ -291,7 +291,7 @@ public class Evaluator implements Closeable {
                         .displayDeclarationAndValue();
             }
 
-            return false;
+            return true;
         }
     }
 
