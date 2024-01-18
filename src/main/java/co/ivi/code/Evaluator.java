@@ -376,21 +376,21 @@ public class Evaluator implements Closeable {
     private boolean displayException(Throwable exception, StackTraceElement[] caused) {
         if (exception instanceof EvalException evex) {
             // User exception
-            return displayEvalException(evex, caused);
+            displayEvalException(evex, caused);
         } else if (exception instanceof UnresolvedReferenceException srex) {
             // Reference to an undefined snippet
-            return displayUnresolvedException(srex);
+            displayUnresolvedException(srex);
         } else {
             // Should never occur
             messenger.out("Unexpected execution exception: %s", exception);
-            return true;
         }
+
+        return false;
     }
 
-    private boolean displayUnresolvedException(UnresolvedReferenceException ex) {
+    private void displayUnresolvedException(UnresolvedReferenceException ex) {
         // Display the resolution issue
         printSnippetStatus(ex.getSnippet(), false);
-        return false;
     }
 
     void printSnippetStatus(DeclarationSnippet sn, boolean resolve) {
@@ -399,7 +399,7 @@ public class Evaluator implements Closeable {
                 .displayDeclarationAndValue();
     }
 
-    private boolean displayEvalException(EvalException ex, StackTraceElement[] caused) {
+    private void displayEvalException(EvalException ex, StackTraceElement[] caused) {
         // The message for the user exception is configured based on the
         // existence of an exception message and if this is a recursive
         // invocation for a chained exception.
@@ -415,7 +415,6 @@ public class Evaluator implements Closeable {
             // Display the cause (recursively)
             displayException(cause, ex.getStackTrace());
         }
-        return true;
     }
 
     void printStackTrace(StackTraceElement[] stes, StackTraceElement[] caused) {
