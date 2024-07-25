@@ -85,6 +85,17 @@ public class CodeTest {
     }
 
     @Test
+    void NoName() {
+        String code = """
+                0xC
+                """;
+        EvaluationResult er = service.evaluateCode(code, session);
+        System.out.println(er.message());
+        assertTrue(er.status());
+        assertTrue(er.message().contains("int $1 ==> 12"));
+    }
+
+    @Test
     void varInt() {
         String code = """
                 var i = 0;
